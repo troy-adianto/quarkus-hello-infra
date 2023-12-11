@@ -216,8 +216,14 @@ spec:
       runAfter:
         - git-clone
       taskRef:
-        kind: Task
-        name: bash-script
+        params:
+        - name: url
+          value: 'https://github.com/troy-adianto/quarkus-hello-infra.git'
+        - name: revision
+          value: main
+        - name: pathInRepo
+          value: pipeline/tasks/bash-script.yaml
+        resolver: git
     - name: rhacs-image-check
       params:
         - name: rox_central_endpoint
@@ -235,8 +241,14 @@ spec:
       runAfter:
         - s2i-java
       taskRef:
-        kind: Task
-        name: rhacs-image-check
+        params:
+        - name: url
+          value: 'https://github.com/troy-adianto/quarkus-hello-infra.git'
+        - name: revision
+          value: main
+        - name: pathInRepo
+          value: pipeline/tasks/rhacs-image-check.yaml
+        resolver: git
     - name: rhacs-deployment-check
       params:
         - name: rox_central_endpoint
@@ -254,8 +266,14 @@ spec:
       runAfter:
         - generate-deployment-file
       taskRef:
-        kind: Task
-        name: rhacs-deployment-check
+        params:
+        - name: url
+          value: 'https://github.com/troy-adianto/quarkus-hello-infra.git'
+        - name: revision
+          value: main
+        - name: pathInRepo
+          value: pipeline/tasks/rhacs-deployment-check.yaml
+        resolver: git
       workspaces:
         - name: source
           workspace: infra
