@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: bash-script
+spec:
+  description: This task runs bash script command with single result
+  params:
+    - default: printf "hello" > "$(results.output.path)"
+      description: The bash script to run
+      name: SCRIPT
+      type: string
+  results:
+    - description: output of executed script
+      name: output
+      type: string
+  steps:
+    - env:
+        - name: HOME
+          value: /tekton/home
+      image: 'registry.redhat.io/devspaces/udi-rhel8'
+      name: bash
+      resources: {}
+      script: |
+        #!/usr/bin/env bash
+        $(params.SCRIPT)
+      securityContext:
+        capabilities:
+          add:
+            - SETFCAP
