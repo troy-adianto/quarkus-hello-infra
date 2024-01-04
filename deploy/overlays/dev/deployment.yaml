@@ -7,4 +7,4 @@ spec:
     spec:
       containers:
         - name: quarkus-hello
-          image: image-registry.openshift-image-registry.svc:5000/ci-test-2/quarkus-hello:cndef
+          image: quay.io/tadianto/quarkus-hello:cndef
